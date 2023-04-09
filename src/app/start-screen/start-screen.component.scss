@@ -1,0 +1,47 @@
+.start-screen {
+    background-image: url('../../assets/img/start-screen.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .start-content {
+        display: flex;
+        flex-direction: column;
+        height: 517px;
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            height: 300px;
+        }
+        
+        .start-btn {
+            width: 300px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: bold;
+            border-radius: 25px;
+            color: #fff;
+            cursor: pointer;
+            background-color: rgb(145 57 57 / 56%);
+            box-shadow: 0 0 2px #fff, 0 0 10px #fff, 0 0 20px #e1351a, 0 0 30px #e1351a, 0 0 40px #e1351a, 0 0 50px #e1351a;
+            animation: blink 0.7s infinite alternate;
+
+            @keyframes blink {
+                100% {
+                    box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fdb329,
+                    0 0 70px #fdb329, 0 0 80px #fdb329;
+                }
+            }
+        }      
+    }
+}
