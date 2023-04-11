@@ -63,3 +63,23 @@
     left: 100px;
     right: 100px;
 }
+
+@media (max-width: 425px) {
+    .cards-container {
+        .first-card {
+            width: 80px!important;
+        }
+        .played-card {
+            right: 80px;
+            width: 80px!important;
+        }
+        img {
+            width: 80px;
+        }
+    }
+    .add-button {
+        width: 40px!important;
+        height: 40px!important;
+    }
+
+}
