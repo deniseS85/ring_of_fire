@@ -1,10 +1,31 @@
+<app-player class="player-position" 
+    *ngFor="let player of game.player; let i = index;" 
+    [ngStyle]="{'top.px': 100 + (i * 90)}" 
+    [name]="player"
+    [playerActive]="i == game.currentPlayer">
+</app-player>
+
 <div class="game-field">
     <div class="cards-container">
-        <img *ngFor="let c of [0,1,2,3,4]; let i = index;" [ngStyle]="{'right.px': i * 5}"
+        <img *ngFor="let c of [0,1,2,3,4]; let i = index;" 
+            [ngStyle]="{'right.px': i * 5}"
             src="../../assets/img/cards/card_cover.png">
+
         <img (click)="takeCard()" class="first-card" style="right: 25px" 
             src="../../assets/img/cards/card_cover.png">
-        <img (click)="takeCard()" *ngIf="takeCardAnimation" class="take-card" style="right: 25px" 
-            src="../../assets/img/cards/ace_1.png">
+
+        <img class="played-card" 
+            *ngFor="let card of game.playedCards" 
+            src="../../assets/img/cards/{{ card }}.png">
+
+        <img class="take-card" style="right: 25px"
+            (click)="takeCard()" *ngIf="takeCardAnimation" 
+            src="../../assets/img/cards/{{ currentCard }}.png">
     </div>
 </div>
+
+<app-game-info [card]="currentCard" class="game-info-card"></app-game-info>
+
+<button (click)="openDialog()" mat-fab color="primary" class="add-button">
+    <mat-icon>add</mat-icon>
+</button>
