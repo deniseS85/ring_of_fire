@@ -9,7 +9,7 @@
     <div class="cards-container">
         <img *ngFor="let c of [0,1,2,3,4]; let i = index;" 
             [ngStyle]="{'right.px': i * 5}"
-            src="../../assets/img/cards/card_cover.png">
+            src="../../assets/img/cards/card_cover.png" style="border-radius: 10px;">
 
         <img (click)="takeCard()" class="first-card" style="right: 25px" 
             src="../../assets/img/cards/card_cover.png">
