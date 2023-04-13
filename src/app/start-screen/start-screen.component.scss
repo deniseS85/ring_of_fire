@@ -72,7 +72,7 @@ $button-color: hsl(186 100% 69%);
                 z-index: -1;
                 background-color: $button-color;
                 box-shadow: 0 0 2em 0.2em $button-color;
-                transition: opacity 100ms linear;
+                transition: opacity 250ms linear;
             }
             &:hover {
                 color: rgba(0, 0, 0, 0.8);
