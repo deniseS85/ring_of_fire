@@ -9,15 +9,22 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
+
 export class GameComponent implements OnInit {
   takeCardAnimation = false;
   currentCard: string = '';
   game: Game;
+  isMobile: boolean;
 
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
     this.newGame();
+    if (window.innerWidth <= 543) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
   }
 
   newGame() {

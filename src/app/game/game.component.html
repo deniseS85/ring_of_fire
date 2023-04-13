@@ -1,9 +1,10 @@
 <app-player class="player-position" 
-    *ngFor="let player of game.player; let i = index;" 
-    [ngStyle]="{'top.px': 100 + (i * 90)}" 
+    *ngFor="let player of game.player; let i = index;"
+    [ngStyle]="{'top.px': (!isMobile ? 100 + (i * 90) : 10 + (i * 50))}"
     [name]="player"
     [playerActive]="i == game.currentPlayer">
 </app-player>
+
 
 <div class="game-field">
     <div class="cards-container">

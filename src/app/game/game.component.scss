@@ -57,7 +57,7 @@
 .add-button {
     position: absolute;
     right: 32px;
-    bottom: 32px;
+    bottom: 45px;
 }
 
 .game-info-card {
@@ -70,6 +70,13 @@
     font-weight: bold;
     text-shadow: 1px 1px 0 #ffffff;
     border-radius: 20px;
+}
+
+@media (max-width: 962px) {
+    .player-position {
+        position: absolute;
+        left: 0;
+    }
 }
 
 @media (max-width: 425px) {
@@ -107,14 +114,12 @@
     .add-button {
         width: 40px!important;
         height: 40px!important;
-        bottom: 130px;
+        bottom: 20px;
+        right: 20px;
     }
     .game-info-card {
         left: 0;
         right: 0;
         bottom: 0;
     }
-   
-
-
 }
