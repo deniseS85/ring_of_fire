@@ -1,6 +1,6 @@
 <app-player class="player-position" 
     *ngFor="let player of game.player; let i = index;"
-    [ngStyle]="{'top.px': (!isMobile ? 100 + (i * 90) : 10 + (i * 50))}"
+    [ngStyle]="{'top.px': (!isMobile ? 100 + (i * 90) : 10 + (i * 40))}"
     [name]="player"
     [playerActive]="i == game.currentPlayer">
 </app-player>
@@ -20,12 +20,12 @@
             src="assets/img/cards/{{ card }}.png">
 
         <img class="take-card" style="right: 25px"
-            (click)="takeCard()" *ngIf="takeCardAnimation" 
-            src="assets/img/cards/{{ currentCard }}.png">
+            (click)="takeCard()" *ngIf="game.takeCardAnimation" 
+            src="assets/img/cards/{{ game.currentCard }}.png">
     </div>
 </div>
 
-<app-game-info [card]="currentCard" class="game-info-card"></app-game-info>
+<app-game-info [card]="game.currentCard" class="game-info-card"></app-game-info>
 
 <button (click)="openDialog()" mat-fab color="primary" class="add-button">
     <mat-icon>add</mat-icon>
