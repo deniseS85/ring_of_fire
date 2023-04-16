@@ -1,12 +1,17 @@
 <app-player class="player-position" 
+    (click)="editPlayer(i)"
     *ngFor="let player of game.player; let i = index;"
     [ngStyle]="{'top.px': (!isMobile ? 100 + (i * 90) : 10 + (i * 40))}"
     [name]="player"
+    [image]="game.playerImages[i]"
     [playerActive]="i == game.currentPlayer">
 </app-player>
 
+<div *ngIf="gameOver">
+    <img  class="game-over" src="assets/img/game-over.jpg">
+</div>
 
-<div class="game-field">
+<div *ngIf="!gameOver" class="game-field">
     <div class="cards-container">
         <img *ngFor="let c of [0,1,2,3,4]; let i = index;" 
             [ngStyle]="{'right.px': i * 5}"
@@ -30,3 +35,6 @@
 <button (click)="openDialog()" mat-fab color="primary" class="add-button">
     <mat-icon>add</mat-icon>
 </button>
+
+<img class="preload-image" src="assets/img/cards/{{ game.cards[game.cards.length -1] }}.png">
+

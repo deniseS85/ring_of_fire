@@ -1,4 +1,4 @@
 <div class="player" [class.player-active]="playerActive">
-    <img src="assets/img/player/profile-1.png">
-    <span>{{ name }}</span>
+    <img src="assets/img/player/profile-{{ image }}">
+    <span >{{ (name.length > 14) ? (name | slice: 0:14) + ' ...':(name)}}</span>
 </div>

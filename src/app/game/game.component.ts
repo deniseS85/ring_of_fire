@@ -7,6 +7,7 @@ import { Firestore, collectionData, docData, setDoc } from '@angular/fire/firest
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class GameComponent implements OnInit {
   game: Game;
   isMobile: boolean;
   gameId: string = '';
+  gameOver: boolean = false;
  
 
   constructor(public dialog: MatDialog, private firestore: Firestore, private route: ActivatedRoute) {
@@ -55,6 +57,7 @@ export class GameComponent implements OnInit {
    */
   setGameData(game: any) {
     this.game.player = game.player;
+    this.game.playerImages = game.playerImages;
     this.game.cards = game.cards;
     this.game.playedCards = game.playedCards;
     this.game.currentPlayer = game.currentPlayer;
@@ -72,7 +75,9 @@ export class GameComponent implements OnInit {
    * take card and show currentplayer, update in array and database
    */
   takeCard() {
-    if (!this.game.takeCardAnimation) {
+    if (this.game.cards.length == 0) {
+      this.gameOver = true;
+    } else if (!this.game.takeCardAnimation) {
       this.game.currentCard = this.game.cards.pop();
       this.game.takeCardAnimation = true;  
       this.game.currentPlayer++;
@@ -97,8 +102,10 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe(name => {
       if (name && name.length > 0) {
         this.game.player.push(name);
+        this.game.playerImages.push('2.png');
         this.updateGame();
       }
+     
     });
   }
 
@@ -110,6 +117,24 @@ export class GameComponent implements OnInit {
     const docRef = doc(this.firestore, 'games', this.gameId);
     const gameData = this.game.toJson();
     updateDoc(docRef, gameData).then(() => {
+    });
+  }
+
+
+  editPlayer(playerID: number) {
+    const dialogRef = this.dialog.open(EditPlayerComponent);
+
+    dialogRef.afterClosed().subscribe(change => {
+      console.log('geändert', change);
+      if (change) {
+        if (change == 'DELETE') {
+          this.game.player.splice(playerID, 1);
+          this.game.playerImages.splice(playerID, 1);
+        } else {
+          this.game.playerImages[playerID] = change;
+        }
+        this.updateGame();
+      }
     });
   }
 

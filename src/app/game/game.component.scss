@@ -72,6 +72,35 @@
     border-radius: 20px;
 }
 
+app-player {
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(1.15);
+    }
+}
+
+.game-over {
+    width: 100vw;
+    max-height: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden; 
+}
+
+.preload-image {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    z-index: -9999;
+}
+
 @media (max-width: 962px) {
     .player-position {
         position: absolute;
@@ -121,5 +150,10 @@
         left: 0;
         right: 0;
         bottom: 0;
+    }
+
+    .game-over {
+        background: black;
+        object-fit: contain;
     }
 }
