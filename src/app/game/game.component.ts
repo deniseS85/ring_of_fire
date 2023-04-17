@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
+import { object } from '@angular/fire/database';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class GameComponent implements OnInit {
   isMobile: boolean;
   gameId: string = '';
   gameOver: boolean = false;
- 
+  sound = new Audio('assets/sounds/take_card.mp3');
 
   constructor(public dialog: MatDialog, private firestore: Firestore, private route: ActivatedRoute) {
     this.gamesCollection = collection(this.firestore, 'games');
@@ -77,39 +78,68 @@ export class GameComponent implements OnInit {
   takeCard() {
     if (this.game.cards.length == 0) {
       this.gameOver = true;
-    } else if (!this.game.takeCardAnimation) {
+    } else if (!this.game.takeCardAnimation && this.game.player.length > 1) {
       this.game.currentCard = this.game.cards.pop();
       this.game.takeCardAnimation = true;  
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.player.length;
       this.updateGame();
-
+      
       setTimeout(() => {
         this.game.playedCards.push(this.game.currentCard);
         this.game.takeCardAnimation = false;
+        this.sound.play();
         this.updateGame();
       }, 1200);
+    } else {
+      this.openDialog();
     }
   }
 
 
   /**
-   * open dialog window to add new player
+   * open dialog window to add new player, save name and profile image
    */
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
-    dialogRef.afterClosed().subscribe(name => {
-      if (name && name.length > 0) {
-        this.game.player.push(name);
-        this.game.playerImages.push('2.png');
+    dialogRef.afterClosed().subscribe((player: object) => {
+      if (player) {
+        this.game.player.push(player['name']);
+        this.game.playerImages.push(player['profile']);
         this.updateGame();
       }
-     
     });
   }
 
 
+  /**
+   * edit name or picture of player
+   * @param playerID 
+   */
+  editPlayer(playerID: number){
+    const dialogRef = this.dialog.open(EditPlayerComponent, {
+      data: {
+        playerName: this.game.player[playerID]['name'],
+        playerProfile: this.game.playerImages[playerID]['profile']
+      }
+    });
+    
+    dialogRef.afterClosed().subscribe((player: any) => {
+      if (player) {
+          if (player == 'DELETE'){
+            this.game.player.splice(playerID, 1);
+            this.game.playerImages.splice(playerID, 1);
+          } else {
+              this.game.player[playerID] = player.name;
+              this.game.playerImages[playerID] = player.profile;
+          } 
+      } 
+      this.updateGame();
+    });
+  }
+
+  
   /**
    * update data in database
    */
@@ -117,24 +147,6 @@ export class GameComponent implements OnInit {
     const docRef = doc(this.firestore, 'games', this.gameId);
     const gameData = this.game.toJson();
     updateDoc(docRef, gameData).then(() => {
-    });
-  }
-
-
-  editPlayer(playerID: number) {
-    const dialogRef = this.dialog.open(EditPlayerComponent);
-
-    dialogRef.afterClosed().subscribe(change => {
-      console.log('geändert', change);
-      if (change) {
-        if (change == 'DELETE') {
-          this.game.player.splice(playerID, 1);
-          this.game.playerImages.splice(playerID, 1);
-        } else {
-          this.game.playerImages[playerID] = change;
-        }
-        this.updateGame();
-      }
     });
   }
 

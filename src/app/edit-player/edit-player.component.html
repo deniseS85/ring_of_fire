@@ -1,11 +1,44 @@
-<h1 mat-dialog-title>Edit player</h1>
+<!-- <h1 mat-dialog-title>Edit player</h1>
 
+<h3>Change your profile image</h3>
 <img *ngFor="let img of allProfileImg"
     src="assets/img/player/profile-{{ img }}"
     [mat-dialog-close]="img"
     class="profile-pictures">
 
+<h3>Change your name</h3>
+<mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput>
+</mat-form-field>
+
 <div mat-dialog-actions>
     <button mat-button (click)="dialogRef.close()">Close</button>
     <button color='warn' mat-button [mat-dialog-close]="'DELETE'">Delete Player</button>
+</div> -->
+
+ 
+
+<h1 mat-dialog-title>Edit player</h1>
+
+<form mat-dialog-content [formGroup]="player">
+    <p>Change your name</p>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+
+    <p>Change your profile picture</p>
+    <div class="profile">
+        <label *ngFor="let profile of allProfileImg">
+            <input type="radio" name="profile" [value]="profile" formControlName="profile">
+            <img [class.selected]="player.value.profile == profile" src="assets/img/player/profile-{{ profile }}">
+        </label>
+    </div>
+</form>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close()">Close</button>
+    <button color='warn' mat-button [mat-dialog-close]="'DELETE'">Delete Player</button>
+    <button mat-button [mat-dialog-close]="player.value" [disabled]="!player.valid" cdkFocusInitial>Edit Player</button>
 </div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -6,11 +7,23 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './dialog-add-player.component.html',
   styleUrls: ['./dialog-add-player.component.scss']
 })
-export class DialogAddPlayerComponent {
-  name: string = '';
+export class DialogAddPlayerComponent implements OnInit {
+  player: FormGroup;
+  name: string;
+  profile: string;
+  allProfileImg = ['1.png', '2.png', '3.png', '4.png'];
 
   constructor(public dialogRef: MatDialogRef<DialogAddPlayerComponent>) {}
 
+  ngOnInit(): void {
+      this.player = new FormGroup({
+          name: new FormControl('', Validators.required),
+          profile: new FormControl('', Validators.required)
+      });
+      console.log(this.player);
+  }
+  
+  
   onNoClick(){
     this.dialogRef.close();
   }

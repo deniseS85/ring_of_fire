@@ -3,7 +3,7 @@
     *ngFor="let player of game.player; let i = index;"
     [ngStyle]="{'top.px': (!isMobile ? 100 + (i * 90) : 10 + (i * 40))}"
     [name]="player"
-    [image]="game.playerImages[i]"
+    [profile]="game.playerImages[i]"
     [playerActive]="i == game.currentPlayer">
 </app-player>
 

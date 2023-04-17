@@ -1,0 +1,44 @@
+.profile {
+    input[type="radio"]{
+        margin: 0;
+        appearance: none;
+    }
+
+    img {
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        margin: 4px;
+        object-fit: contain;
+        border-radius: 100%;
+        border: 3px solid white;
+        transition: all 225ms ease-in-out;
+
+        &:hover{
+            border: 3px solid  rgba(0, 0, 0, 0.2);
+            transition: all 225ms ease-in-out;
+            transform: scale(1.1); 
+        }
+    }
+
+    .selected {
+        border: 3px solid purple;
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: all 225ms ease-in-out;
+
+        &:hover {
+            border: 3px solid purple;
+        }
+    }
+}
+
+
+@media (max-width: 425px) {
+    .profile {
+        img {
+            width: 35px;
+            height: 35px;
+        }
+    }
+}
+
