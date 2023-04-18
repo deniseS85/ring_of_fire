@@ -2,13 +2,10 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Game } from '../models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-import { CollectionReference, DocumentData, addDoc, collection, deleteDoc, doc, updateDoc,} from '@firebase/firestore';
-import { Firestore, collectionData, docData, setDoc } from '@angular/fire/firestore';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { CollectionReference, DocumentData, collection, doc, updateDoc,} from '@firebase/firestore';
+import { Firestore, docData } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
-import { object } from '@angular/fire/database';
 
 
 @Component({
@@ -23,7 +20,9 @@ export class GameComponent implements OnInit {
   isMobile: boolean;
   gameId: string = '';
   gameOver: boolean = false;
-  sound = new Audio('assets/sounds/take_card.mp3');
+  take_card = new Audio('assets/sounds/take_card.mp3');
+  game_over = new Audio('assets/sounds/end-game.mp3');
+
 
   constructor(public dialog: MatDialog, private firestore: Firestore, private route: ActivatedRoute) {
     this.gamesCollection = collection(this.firestore, 'games');
@@ -71,6 +70,17 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
+  restartGame() {
+    let currentPlayer = this.game.players;
+    let currentPlayerImage = this.game.playerImages;
+    this.game = null;
+    this.gameOver = false;
+    this.game = new Game;
+    this.game.players = currentPlayer;
+    this.game.playerImages = currentPlayerImage;
+    this.updateGame();
+  }
+
   
   /**
    * take card and show currentplayer, update in array and database
@@ -78,6 +88,7 @@ export class GameComponent implements OnInit {
   takeCard() {
     if (this.game.cards.length == 0) {
       this.gameOver = true;
+      this.game_over.play();
     } else if (!this.game.takeCardAnimation && this.game.players.length > 1) {
       this.game.currentCard = this.game.cards.pop();
       this.game.takeCardAnimation = true;  
@@ -88,7 +99,7 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         this.game.playedCards.push(this.game.currentCard);
         this.game.takeCardAnimation = false;
-        this.sound.play();
+        this.take_card.play();
         this.updateGame();
       }, 1200);
     } else {
@@ -160,10 +171,10 @@ export class GameComponent implements OnInit {
       target: { innerWidth: number;}; 
     }) {
     
-      if (event.target.innerWidth <= 543) {
+      if (event.target.innerWidth <= 777) {
         this.isMobile = true;
       } else {
         this.isMobile = false;
       }
     }
-}
+  }

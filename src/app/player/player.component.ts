@@ -10,3 +10,4 @@ export class PlayerComponent {
   @Input() profile: string;
   @Input() playerActive: boolean = false;
 }
+

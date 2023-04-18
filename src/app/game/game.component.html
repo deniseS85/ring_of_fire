@@ -7,10 +7,13 @@
     [playerActive]="i == game.currentPlayer">
 </app-player>
 
-<!-- [name]="player.name" [profile]="player.profile"  -->
 
-<div *ngIf="gameOver">
-    <img  class="game-over" src="assets/img/game-over.jpg">
+<div *ngIf="gameOver" class="game-over">
+    <div class="game-over-images">
+        <img src="assets/img/fire-bg.png">
+        <img src="assets/img/game-over.png">
+    </div>
+    <div (click)="restartGame()" class="start-btn">Start</div>
 </div>
 
 <div *ngIf="!gameOver" class="game-field">
@@ -37,6 +40,4 @@
 <button (click)="addPlayer()" mat-fab color="primary" class="add-button">
     <mat-icon>add</mat-icon>
 </button>
-
-<img class="preload-image" src="assets/img/cards/{{ game.cards[game.cards.length -1] }}.png">
 

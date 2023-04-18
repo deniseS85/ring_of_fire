@@ -6,6 +6,7 @@
     opacity: 0.8;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
+   /*  transform-style: preserve-3d; */
     
     img {
         width: 70px;
@@ -35,8 +36,16 @@
     }
 }
 
+.scene {
+    width: 300px;
+    height: 140px;
+    position: relative;
+    perspective: 1000px;
+  }
+
 @media (max-width: 962px) {
     .player {
+        width: 230px;
         border-top-right-radius: 50px;
         border-bottom-right-radius: 50px;
         border-top-left-radius: unset;
@@ -44,7 +53,7 @@
     }  
 }
 
-@media (max-width: 543px) {
+@media (max-width: 777px) {
     .player {
         width: 120px;
 
