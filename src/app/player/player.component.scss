@@ -15,22 +15,22 @@
         border-radius: 100%;
         opacity: 0.5;
     }
-
-    span {
+    .name-web {
         font-size: 24px;
         margin-left: 16px;
         opacity: 0.5;
+    }
+    .name-mobile {
+        display: none;
     }
 }
 
 .player-active {
     background-image: linear-gradient(to right top, #8136f3, #9f43f4, #b852f6, #ce61f8, #e272fb)!important;
     opacity: 1!important;
-
     img {
         opacity: 1!important;
     }
-
     span {
         opacity: 1!important;
     }
@@ -41,7 +41,7 @@
     height: 140px;
     position: relative;
     perspective: 1000px;
-  }
+}
 
 @media (max-width: 962px) {
     .player {
@@ -50,18 +50,25 @@
         border-bottom-right-radius: 50px;
         border-top-left-radius: unset;
         border-bottom-left-radius: unset;
+        .name-mobile {
+            font-size: 24px;
+            display: flex;
+            margin-left: 7px;
+            opacity: 0.5;
+        }
+        .name-web {
+            display: none;
+        }
     }  
 }
 
 @media (max-width: 777px) {
     .player {
         width: 120px;
-
-        span {
+        .name-mobile {
+            display: flex;
             font-size: 16px;
-            margin-left: 7px
         }
-
         img {
             width: 30px;
             height: 30px;

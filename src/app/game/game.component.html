@@ -1,4 +1,4 @@
-<app-player class="player-position" 
+<app-player class="player-position"
     *ngFor="let player of game.players; let i = index;"
     (click)="editPlayer(i)"
     [ngStyle]="{'top.px': (!isMobile ? 100 + (i * 90) : 10 + (i * 40))}"
@@ -6,6 +6,7 @@
     [profile]="game.playerImages[i]"
     [playerActive]="i == game.currentPlayer">
 </app-player>
+
 
 
 <div *ngIf="gameOver" class="game-over">

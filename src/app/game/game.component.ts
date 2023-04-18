@@ -141,6 +141,9 @@ export class GameComponent implements OnInit {
           if (player == 'DELETE'){
             this.game.players.splice(playerID, 1);
             this.game.playerImages.splice(playerID, 1);
+            if (this.game.players.length <= 1) {
+              this.game.currentPlayer = 0;
+            }
           } else {
               this.game.players[playerID] = player.name;
               this.game.playerImages[playerID] = player.profile;
