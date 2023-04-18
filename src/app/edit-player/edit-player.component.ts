@@ -24,9 +24,7 @@ export class EditPlayerComponent implements OnInit  {
         name: new FormControl(this.data.playerName, Validators.required),
         profile: new FormControl(this.data.playerProfile, Validators.required)
     });
-    console.log(this.player);
     console.log(this.data);
-    console.log(FormControl);
   }
 }
 

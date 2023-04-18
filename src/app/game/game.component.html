@@ -1,11 +1,13 @@
 <app-player class="player-position" 
+    *ngFor="let player of game.players; let i = index;"
     (click)="editPlayer(i)"
-    *ngFor="let player of game.player; let i = index;"
     [ngStyle]="{'top.px': (!isMobile ? 100 + (i * 90) : 10 + (i * 40))}"
     [name]="player"
     [profile]="game.playerImages[i]"
     [playerActive]="i == game.currentPlayer">
 </app-player>
+
+<!-- [name]="player.name" [profile]="player.profile"  -->
 
 <div *ngIf="gameOver">
     <img  class="game-over" src="assets/img/game-over.jpg">
@@ -32,7 +34,7 @@
 
 <app-game-info [card]="game.currentCard" class="game-info-card"></app-game-info>
 
-<button (click)="openDialog()" mat-fab color="primary" class="add-button">
+<button (click)="addPlayer()" mat-fab color="primary" class="add-button">
     <mat-icon>add</mat-icon>
 </button>
 

@@ -20,7 +20,6 @@ export class DialogAddPlayerComponent implements OnInit {
           name: new FormControl('', Validators.required),
           profile: new FormControl('', Validators.required)
       });
-      console.log(this.player);
   }
   
   

@@ -57,7 +57,7 @@ export class GameComponent implements OnInit {
    * @param game update data in game
    */
   setGameData(game: any) {
-    this.game.player = game.player;
+    this.game.players = game.players;
     this.game.playerImages = game.playerImages;
     this.game.cards = game.cards;
     this.game.playedCards = game.playedCards;
@@ -78,11 +78,11 @@ export class GameComponent implements OnInit {
   takeCard() {
     if (this.game.cards.length == 0) {
       this.gameOver = true;
-    } else if (!this.game.takeCardAnimation && this.game.player.length > 1) {
+    } else if (!this.game.takeCardAnimation && this.game.players.length > 1) {
       this.game.currentCard = this.game.cards.pop();
       this.game.takeCardAnimation = true;  
       this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.player.length;
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
       this.updateGame();
       
       setTimeout(() => {
@@ -92,7 +92,7 @@ export class GameComponent implements OnInit {
         this.updateGame();
       }, 1200);
     } else {
-      this.openDialog();
+      this.addPlayer();
     }
   }
 
@@ -100,12 +100,12 @@ export class GameComponent implements OnInit {
   /**
    * open dialog window to add new player, save name and profile image
    */
-  openDialog(): void {
+  addPlayer(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((player: object) => {
       if (player) {
-        this.game.player.push(player['name']);
+        this.game.players.push(player['name']);
         this.game.playerImages.push(player['profile']);
         this.updateGame();
       }
@@ -120,20 +120,20 @@ export class GameComponent implements OnInit {
   editPlayer(playerID: number){
     const dialogRef = this.dialog.open(EditPlayerComponent, {
       data: {
-        playerName: this.game.player[playerID]['name'],
-        playerProfile: this.game.playerImages[playerID]['profile']
+        playerName: this.game.players[playerID],
+        playerProfile: this.game.playerImages[playerID]
       }
     });
     
     dialogRef.afterClosed().subscribe((player: any) => {
       if (player) {
           if (player == 'DELETE'){
-            this.game.player.splice(playerID, 1);
+            this.game.players.splice(playerID, 1);
             this.game.playerImages.splice(playerID, 1);
           } else {
-              this.game.player[playerID] = player.name;
+              this.game.players[playerID] = player.name;
               this.game.playerImages[playerID] = player.profile;
-          } 
+          }
       } 
       this.updateGame();
     });
