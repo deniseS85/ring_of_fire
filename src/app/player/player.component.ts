@@ -9,8 +9,7 @@ export class PlayerComponent {
   @Input() name: string;
   @Input() profile: string;
   @Input() playerActive: boolean = false;
-
-  }
+}
 
 
 

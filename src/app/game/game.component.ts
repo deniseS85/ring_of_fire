@@ -6,7 +6,7 @@ import { CollectionReference, DocumentData, collection, doc, updateDoc,} from '@
 import { Firestore, docData } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-game',
@@ -112,15 +112,19 @@ export class GameComponent implements OnInit {
    * open dialog window to add new player, save name and profile image
    */
   addPlayer(): void {
-    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    if (this.game.players.length < 6) {
+      const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
-    dialogRef.afterClosed().subscribe((player: object) => {
-      if (player) {
-        this.game.players.push(player['name']);
-        this.game.playerImages.push(player['profile']);
-        this.updateGame();
-      }
-    });
+      dialogRef.afterClosed().subscribe((player: object) => {
+        if (player) {
+          this.game.players.push(player['name']);
+          this.game.playerImages.push(player['profile']);
+          this.updateGame();
+        }
+      });
+    } else {
+      Swal.fire('Maximum number of players reached!');
+    }
   }
 
 
@@ -180,4 +184,5 @@ export class GameComponent implements OnInit {
         this.isMobile = false;
       }
     }
+
   }

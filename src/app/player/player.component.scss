@@ -6,8 +6,6 @@
     opacity: 0.8;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
-   /*  transform-style: preserve-3d; */
-    
     img {
         width: 70px;
         height: 70px;
@@ -25,6 +23,7 @@
     }
 }
 
+
 .player-active {
     background-image: linear-gradient(to right top, #8136f3, #9f43f4, #b852f6, #ce61f8, #e272fb)!important;
     opacity: 1!important;
@@ -34,13 +33,6 @@
     span {
         opacity: 1!important;
     }
-}
-
-.scene {
-    width: 300px;
-    height: 140px;
-    position: relative;
-    perspective: 1000px;
 }
 
 @media (max-width: 962px) {

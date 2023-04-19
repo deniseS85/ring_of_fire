@@ -53,6 +53,10 @@
 .player-position {
     position: absolute;
     right: 0;
+    cursor: pointer;
+    &:hover {
+        filter: brightness(1.15);
+    }
 }
 
 .add-button {
@@ -73,13 +77,6 @@
     border-radius: 20px;
 }
 
-app-player {
-    cursor: pointer;
-
-    &:hover {
-        filter: brightness(1.15);
-    }
-}
 
 .game-over {
     display: flex;

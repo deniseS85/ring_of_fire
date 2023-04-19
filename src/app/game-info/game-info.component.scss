@@ -1,0 +1,14 @@
+.game-info {
+    background-color: rgb(189, 195, 199);
+    color: black;
+    font-size: 16px;
+    min-height: 81px;
+    border: 5px groove #000;
+}
+
+@media (max-width: 425px) {
+    .game-info {
+        border: unset;
+        border-radius: unset;
+    }
+}
