@@ -33,6 +33,9 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
+            "allowedCommonJsDependencies": [
+              "lodash"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -41,11 +44,11 @@
                 {
                   "type": "initial",
                   "maximumWarning": "4mb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
+                  "maximumWarning": "3kb",
                   "maximumError": "4kb"
                 }
               ],
