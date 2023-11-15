@@ -87,23 +87,26 @@ export class GameComponent implements OnInit {
    */
   takeCard() {
     if (this.game.cards.length == 0) {
-      this.gameOver = true;
-      this.game_over.play();
+          this.gameOver = true;
+          this.game_over.play();
     } else if (!this.game.takeCardAnimation && this.game.players.length > 1) {
-      this.game.currentCard = this.game.cards.pop();
-      this.game.takeCardAnimation = true;  
-      this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
-      this.updateGame();
+          this.game.currentCard = this.game.cards.pop();
+          this.game.takeCardAnimation = true;  
+          this.game.currentPlayer++;
+          this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+          this.updateGame();
       
       setTimeout(() => {
-        this.game.playedCards.push(this.game.currentCard);
-        this.game.takeCardAnimation = false;
-        this.take_card.play();
-        this.updateGame();
+          this.game.playedCards.push(this.game.currentCard);
+          this.game.takeCardAnimation = false;
+          this.take_card.play();
+          this.updateGame();
       }, 1200);
     } else {
-      this.addPlayer();
+          if(this.game.players.length <= 1) {
+              this.addPlayer();
+          }
+         
     }
   }
 
@@ -113,14 +116,14 @@ export class GameComponent implements OnInit {
    */
   addPlayer(): void {
     if (this.game.players.length < 6) {
-      const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+          const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
       dialogRef.afterClosed().subscribe((player: object) => {
-        if (player) {
-          this.game.players.push(player['name']);
-          this.game.playerImages.push(player['profile']);
-          this.updateGame();
-        }
+          if (player) {
+            this.game.players.push(player['name']);
+            this.game.playerImages.push(player['profile']);
+            this.updateGame();
+          }
       });
     } else {
       Swal.fire('Maximum number of players reached!');
